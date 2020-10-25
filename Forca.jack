@@ -1,4 +1,70 @@
 class Forca {
+    field int x; //Posição do começo da forca no eixo X 
+
+    constructor Forca new(int X) {
+        let x = X;
+        do Forca.drawForca(x,1);
+        do Forca.drawForca(x,2);
+        do Forca.drawForca(x,3);
+        do Forca.drawForca(x,4);
+        do Forca.drawForca(x,5);
+        do Forca.drawForca(x,6);
+        do Forca.drawForca(x,7);
+        do Forca.drawForca(x,8);
+        return this;
+    }
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+   }
+
+    method void screen1 () {
+        do Screen.drawLine(20,20, 250,20);
+        do Screen.drawLine(250,20, 250,220);
+        do Screen.drawLine(20,20, 20,220);
+        do Screen.drawLine(20,220, 250,220);
+
+        do Forca.rostinho(1571);
+        do Forca.rostinho(5997);
+
+        do Output.moveCursor(7,6);
+        do Output.printString("Bem vindo ao jogo da");
+        do Output.moveCursor(9,13);
+        do Output.printString("FORCA!");
+
+        do Output.moveCursor(13,8);
+        do Output.printString("Pressione 'Enter'");
+        do Output.moveCursor(15,10);
+        do Output.printString("para Iniciar.");
+
+        do Output.moveCursor(21,7);
+        do Output.printString("Por: Stefany Izidio.");
+
+        return;
+    }
+
+    function void rostinho(int x) {
+        var int memAddress;
+        let memAddress = 16384+x;
+        do Memory.poke(memAddress+0, 4080);
+        do Memory.poke(memAddress+32, 4104);
+        do Memory.poke(memAddress+64, 8196);
+        do Memory.poke(memAddress+96, 19026);
+        do Memory.poke(memAddress+128, -31711);
+        do Memory.poke(memAddress+160, -30127);
+        do Memory.poke(memAddress+192, -32767);
+        do Memory.poke(memAddress+224, -32767);
+        do Memory.poke(memAddress+256, -32767);
+        do Memory.poke(memAddress+288, -28663);
+        do Memory.poke(memAddress+320, -30671);
+        do Memory.poke(memAddress+352, -30783);
+        do Memory.poke(memAddress+384, 17922);
+        do Memory.poke(memAddress+416, 9732);
+        do Memory.poke(memAddress+448, 4104);
+        do Memory.poke(memAddress+480, 4080);
+        return;
+    }
+
     function void drawForca (int start, int part) {
         var int start, part;
 
@@ -11,14 +77,26 @@ class Forca {
             do Screen.drawCircle(start+165,70,20);} // Cabeça (3)
         if (part = 4) {
             do Screen.drawRectangle(start+163,90,start+166,170);} // Tórax (4)
-        if (part = 5) {
-            do Screen.drawLine(start+163,170,start+130,210);} // perna esquerda (5)
-        if (part = 6) {
-            do Screen.drawLine(start+166,170,start+200,210);} // perna direita (6)
+        if (part = 5) { // perna esquerda (5)
+            do Screen.drawLine(start+163,170,start+130,210);
+            do Screen.drawLine(start+163,171,start+130,211);
+            do Screen.drawLine(start+163,172,start+130,212);
+            } 
+        if (part = 6) { // perna direita (6)
+            do Screen.drawLine(start+166,170,start+200,210);
+            do Screen.drawLine(start+166,171,start+200,211);
+            do Screen.drawLine(start+166,172,start+200,212);
+            } 
         if (part = 7) {
-            do Screen.drawLine(start+163,110,start+130,150);} // braço esquerdo (7)
+            do Screen.drawLine(start+163,110,start+130,150);
+            do Screen.drawLine(start+163,111,start+130,151);
+            do Screen.drawLine(start+163,112,start+130,152);
+            } // braço esquerdo (7)
         if (part = 8) { 
-            do Screen.drawLine(start+166,110,start+200,150);} // braço direito (8)
+            do Screen.drawLine(start+166,110,start+200,150);
+            do Screen.drawLine(start+166,111,start+200,151);
+            do Screen.drawLine(start+166,112,start+200,152);
+            } // braço direito (8)
         return;
-    }  
+    }
 }

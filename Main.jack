@@ -1,7 +1,9 @@
 class Main {
     function void main() {
-        do ForcaLogic.mainScreen();
-
+        var ForcaLogic logic;
+        let logic = ForcaLogic.new(); //Inicia  a lógica
+        
+        do logic.dispose();
         return;
     }
 }

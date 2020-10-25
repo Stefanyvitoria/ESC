@@ -1,6 +1,40 @@
 class ForcaLogic {
-    field int indexWord;
+    field String word; //Palavra a ser adivinhada
+    field Forca forca;
 
+    constructor ForcaLogic new() {
+        let forca = Forca.new(270);
+        do forca.screen1();
+        let word = ForcaLogic.words(); // Escolhe a palavra.
+
+        return this;
+    }
+
+    method void dispose() {
+        do forca.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    function String words () {
+        var Array lista;
+        var int indexWord;
+        let indexWord = ForcaLogic.Random();
+        let lista = Array.new(10);
+        
+        let lista[1] = "Cobra";
+        let lista[2] = "Macaco";
+        let lista[3] = "elefante";
+        let lista[4] = "Leao";
+        let lista[5] =  "Gato";
+        let lista[6] = "Cachorro";
+        let lista[7] = "Peixe";
+        let lista[8] = "Formiga";
+        let lista[9] = "Tigre";
+        let lista[10] = "Ovelha";
+
+        return lista[indexWord];
+    }
     
     function int Random() {
         var int i, key; 
@@ -9,30 +43,9 @@ class ForcaLogic {
         while (key = 0) {
             let key = Keyboard.keyPressed();
             let i = i + 1;
-
-            if (i > 10) {
-                let i = 0;
-            }
-            do Sys.wait(50);
+            if (i = 11) {
+                let i = 0;}
         }
         return (i);
-    }
-    function void mainScreen() {
-        do indexWord = ForcaLogic.Random();
-        do ForcaLogic.drawAllForca();
-
-        return;
-    }
-
-    function void drawAllForca () {
-        do Forca.drawForca(270,1);
-        do Forca.drawForca(270,2);
-        do Forca.drawForca(270,3);
-        do Forca.drawForca(270,4);
-        do Forca.drawForca(270,5);
-        do Forca.drawForca(270,6);
-        do Forca.drawForca(270,7);
-        do Forca.drawForca(270,8);
-        return;
     }
 }
