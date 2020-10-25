@@ -24,11 +24,12 @@ class ForcaLogic {
 
     function void run(String word) {
         var char letra, key;
-        var int x, y,  count, tmp;
+        var int x, y, erro, count, tmp, tmp1;
         
         let x = 11;
         let y = 5;
         let count = 0;
+        let erro = 0;
         let key =  Keyboard.readChar();
         while (~(key = 135)) {          //loop geral do jogo
                     
@@ -42,6 +43,10 @@ class ForcaLogic {
             let count = tmp;
            
             do ForcaLogic.drawLetra(letra, x,y);
+            //do ForcaLogic.verificaletra(letra, word);
+            let tmp1 = ForcaLogic.verificaletra(letra, word, erro);
+            let tmp = erro + tmp1;
+            let erro = tmp; 
            
             let tmp = y + 2;
             let y = tmp;
@@ -58,6 +63,33 @@ class ForcaLogic {
             let key =  Keyboard.readChar();
         }
         return;
+    }
+
+    function int verificaletra(int letra, String palavra, int erro) {
+        var int lenPalavra, count, tmp;
+        var boolean ntem;
+
+        //do Output.printString(palavra);
+        //do Output.println();
+        let lenPalavra = palavra.length();
+        let ntem = true;
+        let count = 0;
+        //do Output.printInt(lenPalavra);
+        while (count < (lenPalavra+2)) {
+
+            if (letra = palavra[count]) {
+                let ntem = false;
+            }
+            let tmp = count + 1;
+            let count = tmp;
+        }
+        if (ntem) {
+            let tmp = erro + 1;
+            let erro = tmp;
+            do Forca.drawForca(270,erro);
+            return 1;
+        }
+        return 0;
     }
 
 
@@ -120,6 +152,10 @@ class ForcaLogic {
 
         do ForcaLogic.drawTracos(lenWord, 90,95);
 
+        //do Output.moveCursor(17,5);
+        //do Output.printString(word);
+
+
         do Output.moveCursor(9,5);
         do Output.printString("Letras tentadas:");
         do Output.moveCursor(11,5);
@@ -153,16 +189,16 @@ class ForcaLogic {
         let indexWord = ForcaLogic.Random();
         let lista = Array.new(10);
         
-        let lista[0] = "cobra";
-        let lista[1] = "macaco";
-        let lista[2] = "elefante";
-        let lista[3] = "leao";
-        let lista[4] =  "gato";
-        let lista[5] = "cachorro";
-        let lista[6] = "peixe";
-        let lista[7] = "formiga";
-        let lista[8] = "tigre";
-        let lista[9] = "ovelha";
+        let lista[0] = "COBRA";
+        let lista[1] = "MACACO";
+        let lista[2] = "ELEFANTE";
+        let lista[3] = "LEAO";
+        let lista[4] =  "GATO";
+        let lista[5] = "CACHORRO";
+        let lista[6] = "PEIXE";
+        let lista[7] = "FORMIGA";
+        let lista[8] = "TIGRE";
+        let lista[9] = "OVELHA";
 
         let animal = lista[indexWord];
         do lista.dispose();
