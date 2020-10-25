@@ -1,15 +1,17 @@
 class Forca {
-    function void forca () {
+    function void forca (int x) {
         //do Screen.drawLine(10,20,10,230);
-        do Screen.drawRectangle(10,20,20,250); // madeira principal (1)
-        do Screen.drawRectangle(20,20,170,30); // madeira de cima (2)
-        do Screen.drawRectangle(160,20,170,50); // (2)
-        do Screen.drawCircle(165,70,20); // Cabeça (3)
-        do Screen.drawRectangle(163,90,166,170); // Corpo (4)
-        do Screen.drawLine(163,170,130,210); // perna esquerda (5)
-        do Screen.drawLine(166,170,200,210); // perna direita (6)
-        do Screen.drawLine(163,110,130,150); // braço esquerdo (7)
-        do Screen.drawLine(166,110,200,150); // braço direito (8)
+        var int start;
+        let start = x;
+        do Screen.drawRectangle(start+10,20,start+20,250); // madeira principal (1)
+        do Screen.drawRectangle(start+20,20,start+170,30); // madeira de cima (2)
+        do Screen.drawRectangle(start+160,20,start+170,50); // (2)
+        do Screen.drawCircle(start+165,70,20); // Cabeça (3)
+        do Screen.drawRectangle(start+163,90,start+166,170); // Corpo (4)
+        do Screen.drawLine(start+163,170,start+130,210); // perna esquerda (5)
+        do Screen.drawLine(start+166,170,start+200,210); // perna direita (6)
+        do Screen.drawLine(start+163,110,start+130,150); // braço esquerdo (7)
+        do Screen.drawLine(start+166,110,start+200,150); // braço direito (8)
         return;
         
     }
