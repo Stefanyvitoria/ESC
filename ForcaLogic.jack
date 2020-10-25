@@ -11,12 +11,59 @@ class ForcaLogic {
         do  ForcaLogic.screen2(forca, word);
         let forca2 = Forca.new(270, false);
 
+        do ForcaLogic.run(word);
+
         return this;
     }
 
     method void dispose() {
         do forca.dispose();
         do Memory.deAlloc(this);
+        return;
+    }
+
+    function void run(String word) {
+        var char letra, key;
+        var int x, y,  count, tmp;
+        
+        let x = 11;
+        let y = 5;
+        let count = 0;
+        let key =  Keyboard.readChar();
+        while (~(key = 135)) {          //loop geral do jogo
+                    
+            while (~(key = 128)) {      // Capita a letra
+                let letra = key;
+                do Output.moveCursor(15,8);
+                let key =  Keyboard.readChar();
+            }
+
+            let tmp = count + 1;
+            let count = tmp;
+           
+            do ForcaLogic.drawLetra(letra, x,y);
+           
+            let tmp = y + 2;
+            let y = tmp;
+
+            if (count = 10) {
+                let count = 0;
+
+                let tmp = x+2;
+                let x = tmp;
+                let y = 5;
+
+            }
+            do Output.moveCursor(15,8);
+            let key =  Keyboard.readChar();
+        }
+        return;
+    }
+
+
+    function void drawLetra(int letra, int x, int y) {
+        do Output.moveCursor(x,y);
+        do Output.printChar(letra);
         return;
     }
 
@@ -76,6 +123,7 @@ class ForcaLogic {
         do Output.moveCursor(9,5);
         do Output.printString("Letras tentadas:");
         do Output.moveCursor(11,5);
+        
         //do Output.printString(word);
 
         return;
@@ -97,10 +145,6 @@ class ForcaLogic {
         return;
     }
 
-    function void drawLetra(char letra) {
-        do Output.printChar(letra);
-        return;
-    }
 
     function String words () {
         var Array lista;
@@ -130,7 +174,7 @@ class ForcaLogic {
         var int i, key; 
         let key = 0;
         let i = 0;
-        while (key = 0) {
+        while (~(key = 129)) {
             let key = Keyboard.keyPressed();
             let i = i + 1;
             if (i = 10) {
