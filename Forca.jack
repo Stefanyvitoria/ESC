@@ -1,16 +1,18 @@
 class Forca {
     field int x; //Posição do começo da forca no eixo X 
 
-    constructor Forca new(int X) {
+    constructor Forca new(int X, boolean draw) {
         let x = X;
-        do Forca.drawForca(x,1);
-        do Forca.drawForca(x,2);
-        do Forca.drawForca(x,3);
-        do Forca.drawForca(x,4);
-        do Forca.drawForca(x,5);
-        do Forca.drawForca(x,6);
-        do Forca.drawForca(x,7);
-        do Forca.drawForca(x,8);
+        if (draw) {
+            do Forca.drawForca(x,1);
+            do Forca.drawForca(x,2);
+            do Forca.drawForca(x,3);
+            do Forca.drawForca(x,4);
+            do Forca.drawForca(x,5);
+            do Forca.drawForca(x,6);
+            do Forca.drawForca(x,7);
+            do Forca.drawForca(x,8);
+        }
         return this;
     }
 
