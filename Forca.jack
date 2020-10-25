@@ -19,6 +19,8 @@ class Forca {
    }
 
     method void screen1 () {
+        do Forca.contorno();
+
         do Screen.drawLine(20,20, 250,20);
         do Screen.drawLine(250,20, 250,220);
         do Screen.drawLine(20,20, 20,220);
@@ -40,6 +42,13 @@ class Forca {
         do Output.moveCursor(21,7);
         do Output.printString("Por: Stefany Izidio.");
 
+        return;
+    }
+    function void contorno() {
+        do Screen.drawLine(5,5,500,5);
+        do Screen.drawLine(5,5,5,245);
+        do Screen.drawLine(5,245,500,245);
+        do Screen.drawLine(500,5,500,245);
         return;
     }
 
@@ -69,7 +78,7 @@ class Forca {
         var int start, part;
 
         if (part = 1) {
-            do Screen.drawRectangle(start+10,20,start+20,250);} // Desenha a madeira principal (1) 
+            do Screen.drawRectangle(start+10,20,start+20,245);} // Desenha a madeira principal (1) 
         if (part = 2) {
             do Screen.drawRectangle(start+20,20,start+170,30); // madeira de cima (2)}
             do Screen.drawRectangle(start+160,20,start+170,50);}
