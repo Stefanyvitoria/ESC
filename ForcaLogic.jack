@@ -4,8 +4,10 @@ class ForcaLogic {
 
     constructor ForcaLogic new() {
         let forca = Forca.new(270);
-        do forca.screen1();
+        do ForcaLogic.screen1();
         let word = ForcaLogic.words(); // Escolhe a palavra.
+
+        do ForcaLogic.screen2();
 
         return this;
     }
@@ -16,22 +18,66 @@ class ForcaLogic {
         return;
     }
 
+    function void contorno() {
+        do Screen.drawLine(5,5,500,5);
+        do Screen.drawLine(5,5,5,245);
+        do Screen.drawLine(5,245,500,245);
+        do Screen.drawLine(500,5,500,245);
+        return;
+    }
+
+    function void screen1 () {
+        do ForcaLogic.contorno();
+
+        do Screen.drawLine(20,20, 250,20);
+        do Screen.drawLine(250,20, 250,220);
+        do Screen.drawLine(20,20, 20,220);
+        do Screen.drawLine(20,220, 250,220);
+
+        do Forca.rostinho(1571);
+        do Forca.rostinho(5997);
+
+        do Output.moveCursor(7,6);
+        do Output.printString("Bem vindo ao jogo da");
+        do Output.moveCursor(9,13);
+        do Output.printString("FORCA!");
+
+        do Output.moveCursor(13,8);
+        do Output.printString("Pressione 'Enter'");
+        do Output.moveCursor(15,10);
+        do Output.printString("para Iniciar.");
+
+        do Output.moveCursor(21,7);
+        do Output.printString("Por: Stefany Izidio.");
+
+        return;
+    }
+
+    function void screen2() {
+        do Screen.clearScreen();
+        do ForcaLogic.contorno();
+
+        
+
+        return;
+    }
+
     function String words () {
         var Array lista;
         var int indexWord;
         let indexWord = ForcaLogic.Random();
         let lista = Array.new(10);
         
-        let lista[1] = "Cobra";
-        let lista[2] = "Macaco";
+        let lista[1] = "cobra";
+        let lista[2] = "macaco";
         let lista[3] = "elefante";
-        let lista[4] = "Leao";
-        let lista[5] =  "Gato";
-        let lista[6] = "Cachorro";
-        let lista[7] = "Peixe";
-        let lista[8] = "Formiga";
-        let lista[9] = "Tigre";
-        let lista[10] = "Ovelha";
+        let lista[4] = "leao";
+        let lista[5] =  "gato";
+        let lista[6] = "cachorro";
+        let lista[7] = "peixe";
+        let lista[8] = "formiga";
+        let lista[9] = "tigre";
+        let lista[10] = "ovelha";
 
         return lista[indexWord];
     }

@@ -13,42 +13,9 @@ class Forca {
         do Forca.drawForca(x,8);
         return this;
     }
+
     method void dispose() {
         do Memory.deAlloc(this);
-        return;
-   }
-
-    method void screen1 () {
-        do Forca.contorno();
-
-        do Screen.drawLine(20,20, 250,20);
-        do Screen.drawLine(250,20, 250,220);
-        do Screen.drawLine(20,20, 20,220);
-        do Screen.drawLine(20,220, 250,220);
-
-        do Forca.rostinho(1571);
-        do Forca.rostinho(5997);
-
-        do Output.moveCursor(7,6);
-        do Output.printString("Bem vindo ao jogo da");
-        do Output.moveCursor(9,13);
-        do Output.printString("FORCA!");
-
-        do Output.moveCursor(13,8);
-        do Output.printString("Pressione 'Enter'");
-        do Output.moveCursor(15,10);
-        do Output.printString("para Iniciar.");
-
-        do Output.moveCursor(21,7);
-        do Output.printString("Por: Stefany Izidio.");
-
-        return;
-    }
-    function void contorno() {
-        do Screen.drawLine(5,5,500,5);
-        do Screen.drawLine(5,5,5,245);
-        do Screen.drawLine(5,245,500,245);
-        do Screen.drawLine(500,5,500,245);
         return;
     }
 
@@ -77,15 +44,15 @@ class Forca {
     function void drawForca (int start, int part) {
         var int start, part;
 
-        if (part = 1) {
-            do Screen.drawRectangle(start+10,20,start+20,245);} // Desenha a madeira principal (1) 
-        if (part = 2) {
-            do Screen.drawRectangle(start+20,20,start+170,30); // madeira de cima (2)}
+        if (part = 1) {// Desenha a madeira principal (1)
+            do Screen.drawRectangle(start+10,20,start+20,245);}  
+        if (part = 2) {// madeira de cima (2)}
+            do Screen.drawRectangle(start+20,20,start+170,30); 
             do Screen.drawRectangle(start+160,20,start+170,50);}
-        if (part = 3) {
-            do Screen.drawCircle(start+165,70,20);} // Cabeça (3)
-        if (part = 4) {
-            do Screen.drawRectangle(start+163,90,start+166,170);} // Tórax (4)
+        if (part = 3) {// Cabeça (3)
+            do Screen.drawCircle(start+165,70,20);} 
+        if (part = 4) {// Tórax (4)
+            do Screen.drawRectangle(start+163,90,start+166,170);} 
         if (part = 5) { // perna esquerda (5)
             do Screen.drawLine(start+163,170,start+130,210);
             do Screen.drawLine(start+163,171,start+130,211);
