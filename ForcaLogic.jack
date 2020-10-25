@@ -1,9 +1,38 @@
 class ForcaLogic {
-    function void Random () {
-        var int i, key; 
-        let i = 0;
-        while :
+    field int indexWord;
 
-    }
     
+    function int Random() {
+        var int i, key; 
+        let key = 0;
+        let i = 0;
+        while (key = 0) {
+            let key = Keyboard.keyPressed();
+            let i = i + 1;
+
+            if (i > 10) {
+                let i = 0;
+            }
+            do Sys.wait(50);
+        }
+        return (i);
+    }
+    function void mainScreen() {
+        do indexWord = ForcaLogic.Random();
+        do ForcaLogic.drawAllForca();
+
+        return;
+    }
+
+    function void drawAllForca () {
+        do Forca.drawForca(270,1);
+        do Forca.drawForca(270,2);
+        do Forca.drawForca(270,3);
+        do Forca.drawForca(270,4);
+        do Forca.drawForca(270,5);
+        do Forca.drawForca(270,6);
+        do Forca.drawForca(270,7);
+        do Forca.drawForca(270,8);
+        return;
+    }
 }

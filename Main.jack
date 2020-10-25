@@ -1,11 +1,7 @@
 class Main {
     function void main() {
-        var String name;
-        let name = "Stefany";
-        //do Output.printString(name);
-        //do Screen.clearScreen();
-        //do Main.draw(55);
-        do Forca.forca(270);
+        do ForcaLogic.mainScreen();
+
         return;
     }
 }
