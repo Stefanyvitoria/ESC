@@ -1,17 +1,19 @@
 class ForcaLogic {
+    /**Executa a lógica principal do jogo.*/
+
     field String word; //Palavra a ser adivinhada
     field Forca forca, forca2;
-    //field ForcaLogic x,y; //cordenadas da 1ª letra
 
     constructor ForcaLogic new() {
         let forca = Forca.new(270, true);
-        do ForcaLogic.screen1();
+        do ForcaLogic.screen1();        //Exibe a tela de entrada
+
         let word = ForcaLogic.words(); // Escolhe a palavra.
 
-        do  ForcaLogic.screen2(forca, word);
+        do  ForcaLogic.screen2(forca, word);    //Exibe a tela de interação.
         let forca2 = Forca.new(270, false);
 
-        do ForcaLogic.run(word, forca2);
+        do ForcaLogic.run(word, forca2);    //Inicia a interação.
 
         return this;
     }
@@ -23,6 +25,7 @@ class ForcaLogic {
     }
 
     function void run(String word, Forca forca2) {
+        /**Função que faz a interaçao com o usuário.*/
         var char letra, key;
         var int x, y, erro, count, tmp, tmp1, q_erros, q_acertos, acertos, lword;
         var int count1, xl, yl;
@@ -35,19 +38,18 @@ class ForcaLogic {
         let count = 0;
         let erro = 0;
         let key =  Keyboard.readChar();
+
         while (~(key = 135)) {          //loop geral do jogo
                     
-            while (~(key = 128)) {      // Capita a letra
+            while (~(key = 128)) {      // Captura a letra
                 let letra = key;
                 do Output.moveCursor(15,8);
                 let key =  Keyboard.readChar();
             }
-
             let tmp = count + 1;
             let count = tmp;
            
-            do ForcaLogic.drawLetra(letra, x,y);
-            //do ForcaLogic.verificaletra(letra, word);
+            do ForcaLogic.drawLetra(letra, x,y);    //Desenha letra.
             let tmp1 = ForcaLogic.verificaletra(letra, word, erro);
             let tmp = erro + tmp1;
             let erro = tmp; 
@@ -57,8 +59,6 @@ class ForcaLogic {
                 let q_erros = tmp;
             }
             if (tmp1 = 0) {
-                let tmp = q_acertos +1;
-                let q_acertos = tmp; 
                 let xl = 6;
                 let yl = 11;
 
@@ -69,37 +69,40 @@ class ForcaLogic {
                 let count1 = 1;
                 while (count1 < (lword+2)) {
                     do Output.moveCursor(19,7);
-                    do Output.printChar(letra);
-                    do Output.printChar(word[count1]);
                     
                     if (~(letra = word[count1])) {
                         let tmp = yl + 1; 
                         let yl = tmp;
                     }
                     if (letra = word[count1]) {
-                        //do Output.printString("OK");
                         do ForcaLogic.drawLetra(letra, xl, yl);
+                        let tmp = yl + 1; 
+                        let yl = tmp;
+
+                        let tmp = q_acertos +1;
+                        let q_acertos = tmp; 
                     }
                     let tmp = count1 + 1;
                     let count1 = tmp;
                 }
             }
-
             if (q_erros = 8) {
-                do Sys.wait(1000);
+                do Sys.wait(500);
                 do Screen.clearScreen();
                 do ForcaLogic.contorno();
                 do forca2.dispose();
+                do Output.moveCursor(0,0);
+                do ForcaLogic.resultado(false);
             }
             let lword = word.length();
             if (q_acertos = lword) {
-                do Sys.wait(1000);
+                do Sys.wait(500);
                 do Screen.clearScreen();
                 do ForcaLogic.contorno();
                 do forca2.dispose();
-                //do Output.printInt(q_acertos);
+                do Output.moveCursor(0,0);
+                do ForcaLogic.resultado(true);
             }
-           
             let tmp = y + 2;
             let y = tmp;
 
@@ -109,7 +112,6 @@ class ForcaLogic {
                 let tmp = x+2;
                 let x = tmp;
                 let y = 5;
-
             }
             do Output.moveCursor(15,8);
             let key =  Keyboard.readChar();
@@ -117,16 +119,35 @@ class ForcaLogic {
         return;
     }
 
+    function void resultado(boolean ganhou) {
+        /**Imprime mensagem final.*/
+        if (ganhou) {
+            do Output.moveCursor(9,17);
+            do Output.printString("Muito bem voce ganhou!");
+            do Output.moveCursor(21,3);
+            do Output.printString("Pressione 'End' para terminar execucao.");
+        } else {
+            do Output.moveCursor(9,17);
+            do Output.printString("Voce foi enforcado!");
+            do Output.println();
+            do Forca.rostinho(1000);
+            do Forca.rostinho(3000);
+            do Forca.rostinho(5000);
+            do Forca.rostinho(7000);
+            do Output.moveCursor(21,3);
+            do Output.printString("Pressione 'End' para terminar execucao.");
+        }
+        return;
+    }
+
     function int verificaletra(int letra, String palavra, int erro) {
+        /**Verifica se uma letra tem em uma plavra.*/
         var int lenPalavra, count, tmp;
         var boolean ntem;
 
-        //do Output.printString(palavra);
-        //do Output.println();
         let lenPalavra = palavra.length();
         let ntem = true;
         let count = 0;
-        //do Output.printInt(lenPalavra);
         while (count < (lenPalavra+2)) {
 
             if (letra = palavra[count]) {
@@ -145,12 +166,14 @@ class ForcaLogic {
     }
 
     function void drawLetra(int letra, int x, int y) {
+        /**Desenha letras na cordenada passada*/
         do Output.moveCursor(x,y);
         do Output.printChar(letra);
         return;
     }
 
     function void contorno() {
+        /**Desenha o contorno*/
         do Screen.drawLine(5,5,500,5);
         do Screen.drawLine(5,5,5,245);
         do Screen.drawLine(5,245,500,245);
@@ -159,6 +182,7 @@ class ForcaLogic {
     }
 
     function void screen1 () {
+        /**Desenha a tela inicial.*/
         do ForcaLogic.contorno();
 
         do Screen.drawLine(20,20, 250,20);
@@ -175,17 +199,17 @@ class ForcaLogic {
         do Output.printString("FORCA!");
 
         do Output.moveCursor(13,8);
-        do Output.printString("Pressione 'Enter'");
+        do Output.printString("Pressione 'BackSpace'");
         do Output.moveCursor(15,10);
         do Output.printString("para Iniciar.");
 
         do Output.moveCursor(21,7);
         do Output.printString("Por: Stefany Izidio.");
-
         return;
     }
 
     function void screen2(Forca forca, String word) {
+        /**Desenha a tela de interação.*/
         var int lenWord;
 
         do Screen.clearScreen();
@@ -203,20 +227,14 @@ class ForcaLogic {
 
         do ForcaLogic.drawTracos(lenWord, 90,95);
 
-        do Output.moveCursor(17,5);
-        do Output.printString(word);
-
-
         do Output.moveCursor(9,5);
         do Output.printString("Letras tentadas:");
         do Output.moveCursor(10,5);
-        
-        //do Output.printString(word);
-
         return;
     }
 
     function void drawTracos(int lenword, int x1, int x2) {
+        /**Desenha os tracinhos com a quantidade de letras.*/
         var int count, tmp, x1, x2;
 
         let count = 0;
@@ -232,8 +250,8 @@ class ForcaLogic {
         return;
     }
 
-
     function String words () {
+        /**Sorteia uma palavra.*/
         var Array lista;
         var int indexWord;
         var String animal;
@@ -258,6 +276,7 @@ class ForcaLogic {
     }
     
     function int Random() {
+        /**Gera um inteiro aleatório.*/
         var int i, key; 
         let key = 0;
         let i = 0;
@@ -267,7 +286,6 @@ class ForcaLogic {
             if (i = 10) {
                 let i = 0;}
         }
-        //do Sys.wait(i*2);
         return (i);
     }
 }
