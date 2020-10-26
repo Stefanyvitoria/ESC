@@ -1,7 +1,7 @@
 class ForcaLogic {
     field String word; //Palavra a ser adivinhada
     field Forca forca, forca2;
-    field ForcaLogic x,y; //cordenadas da 1ª letra
+    //field ForcaLogic x,y; //cordenadas da 1ª letra
 
     constructor ForcaLogic new() {
         let forca = Forca.new(270, true);
@@ -11,7 +11,7 @@ class ForcaLogic {
         do  ForcaLogic.screen2(forca, word);
         let forca2 = Forca.new(270, false);
 
-        do ForcaLogic.run(word);
+        do ForcaLogic.run(word, forca2);
 
         return this;
     }
@@ -22,12 +22,12 @@ class ForcaLogic {
         return;
     }
 
-    function void run(String word) {
+    function void run(String word, Forca forca2) {
         var char letra, key;
-        var int x, y, erro, count, tmp, tmp1, q_erros, q_acertos, acertos, lword, ld;
-        
+        var int x, y, erro, count, tmp, tmp1, q_erros, q_acertos, acertos, lword;
+        var int count1, xl, yl;
 
-
+        let lword = word.length();
         let q_acertos = 0;
         let q_erros = 0;
         let x = 11;
@@ -55,22 +55,49 @@ class ForcaLogic {
             if (tmp1 = 1) {
                 let tmp = q_erros +1;
                 let q_erros = tmp;
-            }else {
+            }
+            if (tmp1 = 0) {
                 let tmp = q_acertos +1;
                 let q_acertos = tmp; 
+                let xl = 6;
+                let yl = 11;
+
+                do Screen.setColor(false);
+                do ForcaLogic.drawTracos(lword, 90,95);
+                do Screen.setColor(true);
+
+                let count1 = 1;
+                while (count1 < (lword+2)) {
+                    do Output.moveCursor(19,7);
+                    do Output.printChar(letra);
+                    do Output.printChar(word[count1]);
+                    
+                    if (~(letra = word[count1])) {
+                        let tmp = yl + 1; 
+                        let yl = tmp;
+                    }
+                    if (letra = word[count1]) {
+                        //do Output.printString("OK");
+                        do ForcaLogic.drawLetra(letra, xl, yl);
+                    }
+                    let tmp = count1 + 1;
+                    let count1 = tmp;
+                }
             }
 
             if (q_erros = 8) {
                 do Sys.wait(1000);
                 do Screen.clearScreen();
                 do ForcaLogic.contorno();
+                do forca2.dispose();
             }
             let lword = word.length();
             if (q_acertos = lword) {
                 do Sys.wait(1000);
                 do Screen.clearScreen();
                 do ForcaLogic.contorno();
-                do Output.printInt(q_acertos);
+                do forca2.dispose();
+                //do Output.printInt(q_acertos);
             }
            
             let tmp = y + 2;
@@ -116,31 +143,6 @@ class ForcaLogic {
         }
         return 0;
     }
-
-    /*function int calculaLetrasDiferentes(String palavra) {
-        var int n, tmp, count, count1, lenPalavra;
-        var String acumulador;
-        var char l, l2;
-
-        let lenPalavra = palavra.length();
-        let count = 0;
-        while (count < (lenPalavra)) {
-            let l = lenPalavra[count];
-
-            while (count1 < (acumulador)){
-                let l2 = acumulador[count1];
-                if (l = l2) {
-                    let tmp = n -1;
-                    let n = tmp;
-                }
-                let tmp = count1 + 1;
-                let count1 = tmp;
-            }
-            let tmp = count +1;
-            let count = tmp;
-        }
-        return n;
-    }*/
 
     function void drawLetra(int letra, int x, int y) {
         do Output.moveCursor(x,y);
@@ -207,7 +209,7 @@ class ForcaLogic {
 
         do Output.moveCursor(9,5);
         do Output.printString("Letras tentadas:");
-        do Output.moveCursor(11,5);
+        do Output.moveCursor(10,5);
         
         //do Output.printString(word);
 
