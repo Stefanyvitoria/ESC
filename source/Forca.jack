@@ -22,6 +22,7 @@ class Forca {
     }
 
     function void rostinho(int x) {
+        /**Desenha um rostinho nas cordenadas.*/
         var int memAddress;
         let memAddress = 16384+x;
         do Memory.poke(memAddress+0, 4080);
@@ -44,6 +45,7 @@ class Forca {
     }
 
     function void drawForca (int start, int part) {
+        /**Desenha a forca por partes.*/
         var int start, part;
 
         if (part = 1) {// Desenha a madeira principal (1)
